@@ -6,7 +6,7 @@ DROP TABLE inventory    CASCADE;
 DROP TABLE reservation  CASCADE;
 
 CREATE TABLE customer (
-    id varchar(64),
+	id varchar(64),
 	username varchar(1024),
 	email varchar(1024),
 	password varchar(1024),
@@ -23,13 +23,13 @@ CREATE TABLE customer (
 );
 
 CREATE TABLE session (
-    id varchar(64),
+	id varchar(64),
 	uid varchar(1024),
 	ttl integer
 );
 
 CREATE TABLE inventory (
-    id varchar(64),
+	id varchar(64),
 	product_id varchar(20),
 	location_id varchar(20),
 	available integer,
@@ -37,7 +37,7 @@ CREATE TABLE inventory (
 );
 
 CREATE TABLE location (
-    id varchar(64),
+	id varchar(64),
 	street varchar(64),
 	city varchar(64),
 	zipcode varchar(16),
@@ -46,7 +46,7 @@ CREATE TABLE location (
 );
 
 CREATE TABLE product (
-    id varchar(64),
+	id varchar(64),
 	name varchar(64),
 	audible_range integer,
 	effective_range integer,
@@ -56,7 +56,7 @@ CREATE TABLE product (
 );
 
 CREATE TABLE reservation (
-    id varchar(64),
+	id varchar(64),
 	product_id varchar(20),
 	location_id varchar(20),
 	customer_id varchar(20),

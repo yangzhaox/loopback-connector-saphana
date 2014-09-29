@@ -1,8 +1,6 @@
-require('loopback-datasource-juggler/test/common.batch.js');
-require('loopback-datasource-juggler/test/include.test.js');
-
-
-var should = require('should');
+var should = require('./init.js');
+//require('loopback-datasource-juggler/test/common.batch.js');
+//require('loopback-datasource-juggler/test/include.test.js');
 
 var Post, db;
 

@@ -1,9 +1,9 @@
-DROP TABLE customer CASCADE;
-DROP TABLE session CASCADE;
-DROP TABLE location CASCADE;
-DROP TABLE product CASCADE;
-DROP TABLE inventory CASCADE;
-DROP TABLE reservation CASCADE;
+DROP TABLE customer     CASCADE;
+DROP TABLE session      CASCADE;
+DROP TABLE location     CASCADE;
+DROP TABLE product      CASCADE;
+DROP TABLE inventory    CASCADE;
+DROP TABLE reservation  CASCADE;
 
 CREATE TABLE customer (
     id varchar(64),
@@ -684,24 +684,25 @@ INSERT INTO product (id,name,audible_range,effective_range,rounds,extras,fire_mo
 INSERT INTO product (id,name,audible_range,effective_range,rounds,extras,fire_modes) VALUES ('2','G17',53,75,15,'Flashlight','Single');
 INSERT INTO product (id,name,audible_range,effective_range,rounds,extras,fire_modes) VALUES ('5','M9 SD',0,75,15,'Silenced','Single');
 
-DROP VIEW inventory_view;
+DROP VIEW   inventory_view;
 CREATE VIEW inventory_view AS
-  SELECT p.name AS product,
-         l.name AS location,
-         i.available
-  FROM inventory i,
-       product p,
-       location l
-  WHERE p.id = i.product_id AND
-        l.id   = i.location_id;
+    SELECT  p.name AS product,
+            l.name AS location,
+            i.available
+    FROM    inventory i,
+            product p,
+            location l
+    WHERE   p.id = i.product_id AND
+            l.id   = i.location_id;
 
-ALTER TABLE customer ADD PRIMARY KEY (id);
-ALTER TABLE inventory ADD PRIMARY KEY (id);
-ALTER TABLE location ADD PRIMARY KEY (id);
-ALTER TABLE product ADD PRIMARY KEY (id);
-ALTER TABLE session ADD PRIMARY KEY (id);
-ALTER TABLE inventory ADD CONSTRAINT location_fk FOREIGN KEY (location_id) REFERENCES location (id);
-ALTER TABLE inventory ADD CONSTRAINT product_fk FOREIGN KEY (product_id) REFERENCES product (id);
-ALTER TABLE reservation ADD CONSTRAINT reservation_customer_fk FOREIGN KEY (customer_id) REFERENCES customer (id);
-ALTER TABLE reservation ADD CONSTRAINT reservation_location_fk FOREIGN KEY (location_id) REFERENCES location (id);
-ALTER TABLE reservation ADD CONSTRAINT reservation_product_fk FOREIGN KEY (product_id) REFERENCES product (id);
+ALTER TABLE customer    ADD PRIMARY KEY (id);
+ALTER TABLE inventory   ADD PRIMARY KEY (id);
+ALTER TABLE location    ADD PRIMARY KEY (id);
+ALTER TABLE product     ADD PRIMARY KEY (id);
+ALTER TABLE session     ADD PRIMARY KEY (id);
+
+ALTER TABLE inventory   ADD CONSTRAINT location_fk              FOREIGN KEY (location_id)   REFERENCES location (id);
+ALTER TABLE inventory   ADD CONSTRAINT product_fk               FOREIGN KEY (product_id)    REFERENCES product (id);
+ALTER TABLE reservation ADD CONSTRAINT reservation_customer_fk  FOREIGN KEY (customer_id)   REFERENCES customer (id);
+ALTER TABLE reservation ADD CONSTRAINT reservation_location_fk  FOREIGN KEY (location_id)   REFERENCES location (id);
+ALTER TABLE reservation ADD CONSTRAINT reservation_product_fk   FOREIGN KEY (product_id)    REFERENCES product (id);

@@ -9,7 +9,8 @@ global.getConfig = function (options) {
         host: config.host || 'gshana.pvgl.sap.corp',
         port: config.port || 30015,
         username: config.username || 'I016904',
-        password: config.password || 'Yoyo1976'
+        password: config.password || 'Yoyo1976',
+        debug: true
     };
 
     if (options) {

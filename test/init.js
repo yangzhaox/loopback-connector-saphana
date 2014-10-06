@@ -6,11 +6,11 @@ var config = require('rc')('loopback', {test: {saphana: {}}}).test.saphana;
 
 global.getConfig = function (options) {
     var dbConf = {
-        host: config.host || 'dewdftzld018u.pgdev.sap.corp',
-        port: config.port || 30015,
-        username: config.username || 'I016904',
-        password: config.password || 'Pfb08c877',
-        debug: true
+        host: config.host,
+        port: config.port,
+        username: config.username,
+        password: config.password,
+        debug: config.debug
     };
 
     if (options) {

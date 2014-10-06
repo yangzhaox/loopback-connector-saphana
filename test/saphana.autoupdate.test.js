@@ -1,11 +1,13 @@
-var assert = require('assert');
-var ds;
+var should, assert, db;
 
-before(function () {
-    ds = getDataSource();
-});
+describe('SAP HANA Auto Update', function () {
 
-describe('SAP HANA connector', function () {
+    before(function (done) {
+        should = require('./init.js');
+        assert = require('assert');
+        db = getDataSource();
+    });
+
     it('should auto migrate/update tables', function (done) {
 
         var schema_v1 =
@@ -13,8 +15,8 @@ describe('SAP HANA connector', function () {
             "name": "CustomerTest",
             "options": {
                 "idInjection": false,
-                "postgresql": {
-                    "schema": "public",
+                "saphana": {
+                    "schema": "",
                     "table": "customer_test"
                 }
             },
@@ -46,8 +48,8 @@ describe('SAP HANA connector', function () {
             "name": "CustomerTest",
             "options": {
                 "idInjection": false,
-                "postgresql": {
-                    "schema": "public",
+                "saphana": {
+                    "schema": "",
                     "table": "customer_test"
                 }
             },
@@ -61,7 +63,7 @@ describe('SAP HANA connector', function () {
                     "type": "String",
                     "required": false,
                     "length": 60,
-                    "postgresql": {
+                    "saphana": {
                         "columnName": "email",
                         "dataType": "varchar",
                         "dataLength": 60,
@@ -81,11 +83,11 @@ describe('SAP HANA connector', function () {
             }
         }
 
-        ds.createModel(schema_v1.name, schema_v1.properties, schema_v1.options);
+        db.createModel(schema_v1.name, schema_v1.properties, schema_v1.options);
 
-        ds.automigrate(function () {
+        db.automigrate(function () {
 
-            ds.discoverModelProperties('customer_test', function (err, props) {
+            db.discoverModelProperties('customer_test', function (err, props) {
                 assert.equal(props.length, 4);
                 var names = props.map(function (p) {
                     return p.columnName;
@@ -95,10 +97,10 @@ describe('SAP HANA connector', function () {
                 assert.equal(names[2], 'email');
                 assert.equal(names[3], 'age');
 
-                ds.createModel(schema_v2.name, schema_v2.properties, schema_v2.options);
+                db.createModel(schema_v2.name, schema_v2.properties, schema_v2.options);
 
-                ds.autoupdate(function (err, result) {
-                    ds.discoverModelProperties('customer_test', function (err, props) {
+                db.autoupdate(function (err, result) {
+                    db.discoverModelProperties('customer_test', function (err, props) {
                         assert.equal(props.length, 4);
                         var names = props.map(function (p) {
                             return p.columnName;
@@ -116,13 +118,13 @@ describe('SAP HANA connector', function () {
     });
 
     it('should report errors for automigrate', function () {
-        ds.automigrate('XYZ', function (err) {
+        db.automigrate('XYZ', function (err) {
             assert(err);
         });
     });
 
     it('should report errors for autoupdate', function () {
-        ds.autoupdate('XYZ', function (err) {
+        db.autoupdate('XYZ', function (err) {
             assert(err);
         });
     });

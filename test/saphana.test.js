@@ -1,13 +1,10 @@
-var should = require('./init.js');
-require('loopback-datasource-juggler/test/common.batch.js');
-require('loopback-datasource-juggler/test/include.test.js');
+var should, db, Post, PostWithStringId;
 
-
-var Post, PostWithStringId, db;
-
-describe('saphana', function () {
+describe('SAP HANA connector features', function () {
 
     before(function (done) {
+        should = require('./init.js');
+
         db = getDataSource();
 
         Post = db.define('PostWithDefaultId', {
@@ -17,7 +14,6 @@ describe('saphana', function () {
             history: Object,
             stars: Number
         });
-
         PostWithStringId = db.define('PostWithStringId', {
             id: {type: String, id: true},
             title: { type: String, length: 255, index: true },

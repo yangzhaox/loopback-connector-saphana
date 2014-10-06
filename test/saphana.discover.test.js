@@ -1,17 +1,13 @@
-process.env.NODE_ENV = 'test';
-require('should');
+var should, assert, db;
 
-var assert = require('assert');
+describe('SAP HANA discover models', function () {
 
-var DataSource = require('loopback-datasource-juggler').DataSource;
-var db;
+    before(function (done) {
+        should = require('./init.js');
+        assert = require('assert');
+        db = getDataSource();
+    });
 
-before(function () {
-    var config = require('rc')('loopback', {dev: {saphana: {}}}).dev.saphana;
-    db = new DataSource(require('../'), config);
-});
-
-describe('DiscoverModels', function () {
     describe('Discover models including views', function () {
         it('should return an array of tables and views', function (done) {
 

@@ -1,6 +1,7 @@
 var should = require('./init.js');
-//require('loopback-datasource-juggler/test/common.batch.js');
-//require('loopback-datasource-juggler/test/include.test.js');
+require('loopback-datasource-juggler/test/common.batch.js');
+require('loopback-datasource-juggler/test/include.test.js');
+
 
 var Post, PostWithStringId, db;
 
@@ -359,98 +360,7 @@ describe('saphana', function () {
             });
         });
     });
-    /*
-     it('should not allow SQL injection for inq operator', function (done) {
-     Post.create({title: 'My Post1', content: 'Hello', stars: 5},
-     function (err, post) {
-     Post.create({title: 'My Post2', content: 'Hello', stars: 20},
-     function (err, post) {
-     Post.find({where: {title: {inq: ['SELECT "title" from "PostWithDefaultId"']}}},
-     function (err, posts) {
-     should.not.exist(err);
-     posts.should.have.property('length', 0);
-     done();
-     });
-     });
-     });
-     });
 
-     it('should not allow SQL injection for lt operator', function (done) {
-     Post.create({title: 'My Post1', content: 'Hello', stars: 5},
-     function (err, post) {
-     Post.create({title: 'My Post2', content: 'Hello', stars: 20},
-     function (err, post) {
-     Post.find({where: {stars: {lt: 'SELECT "title" from "PostWithDefaultId"'}}},
-     function (err, posts) {
-     should.not.exist(err);
-     posts.should.have.property('length', 0);
-     done();
-     });
-     });
-     });
-     });
-
-     it('should not allow SQL injection for nin operator', function (done) {
-     Post.create({title: 'My Post1', content: 'Hello', stars: 5},
-     function (err, post) {
-     Post.create({title: 'My Post2', content: 'Hello', stars: 20},
-     function (err, post) {
-     Post.find({where: {title: {nin: ['SELECT title from PostWithDefaultId']}}},
-     function (err, posts) {
-     should.not.exist(err);
-     posts.should.have.property('length', 2);
-     done();
-     });
-     });
-     });
-     });
-
-
-     it('should not allow SQL injection for inq operator with number column', function (done) {
-     Post.create({title: 'My Post1', content: 'Hello', stars: 5},
-     function (err, post) {
-     Post.create({title: 'My Post2', content: 'Hello', stars: 20},
-     function (err, post) {
-     Post.find({where: {stars: {inq: ['SELECT title from PostWithDefaultId']}}},
-     function (err, posts) {
-     should.not.exist(err);
-     posts.should.have.property('length', 0);
-     done();
-     });
-     });
-     });
-     });
-
-     it('should not allow SQL injection for inq operator with array value', function (done) {
-     Post.create({title: 'My Post1', content: 'Hello', stars: 5},
-     function (err, post) {
-     Post.create({title: 'My Post2', content: 'Hello', stars: 20},
-     function (err, post) {
-     Post.find({where: {stars: {inq: [5, 'SELECT title from PostWithDefaultId']}}},
-     function (err, posts) {
-     should.not.exist(err);
-     posts.should.have.property('length', 1);
-     done();
-     });
-     });
-     });
-     });
-
-     it('should not allow SQL injection for between operator', function (done) {
-     Post.create({title: 'My Post1', content: 'Hello', stars: 5},
-     function (err, post) {
-     Post.create({title: 'My Post2', content: 'Hello', stars: 20},
-     function (err, post) {
-     Post.find({where: {stars: {between: [5, 'SELECT title from PostWithDefaultId']}}},
-     function (err, posts) {
-     should.not.exist(err);
-     posts.should.have.property('length', 0);
-     done();
-     });
-     });
-     });
-     });
-     */
     after(function (done) {
         Post.destroyAll(function () {
             PostWithStringId.destroyAll(done);

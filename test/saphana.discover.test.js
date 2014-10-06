@@ -6,6 +6,7 @@ describe('SAP HANA discover models', function () {
         should = require('./init.js');
         assert = require('assert');
         db = getDataSource();
+        done();
     });
 
     describe('Discover models including views', function () {

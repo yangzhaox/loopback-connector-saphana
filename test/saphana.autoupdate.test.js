@@ -1,11 +1,12 @@
 var should, assert, db;
 
-describe('SAP HANA Auto Update', function () {
+describe('SAP HANA auto update', function () {
 
     before(function (done) {
         should = require('./init.js');
         assert = require('assert');
         db = getDataSource();
+        done();
     });
 
     it('should auto migrate/update tables', function (done) {
@@ -41,7 +42,7 @@ describe('SAP HANA Auto Update', function () {
                     "required": false
                 }
             }
-        }
+        };
 
         var schema_v2 =
         {
@@ -81,7 +82,7 @@ describe('SAP HANA Auto Update', function () {
                     "length": 40
                 }
             }
-        }
+        };
 
         db.createModel(schema_v1.name, schema_v1.properties, schema_v1.options);
 

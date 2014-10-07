@@ -26,7 +26,7 @@ describe('SAP HANA discover models', function () {
                             views = true;
                         }
                     });
-                    should.exist(views, 'Should have views');
+                    views.should.be.true;
                     done(null, models);
                 }
             });
@@ -52,7 +52,7 @@ describe('SAP HANA discover models', function () {
                         }
                     });
                     models.should.have.length(3);
-                    should.not.exist(views, 'Should not have views');
+                    views.should.be.false;
                     done(null, models);
                 }
             });
@@ -78,7 +78,7 @@ describe('Discover models including other users', function () {
                         others = true;
                     }
                 });
-                should.exist(others, 'Should have tables/views owned by others');
+                others.should.be.true;
                 done(err, models);
             }
         });
@@ -168,23 +168,25 @@ describe('Discover model foreign keys', function () {
     });
 });
 
-describe('Discover LDL schema from a table', function () {
-    it('should return an LDL schema for inventory', function (done) {
-        db.discoverSchema('inventory', {owner: 'strongloop'}, function (err, schema) {
-            schema.name.should.be.equal('Inventory');
-            schema.options.hdb.schema.should.be.equal('strongloop');
-            schema.options.hdb.table.should.be.equal('inventory');
-            schema.properties.productId.should.not.be.empty;
-            schema.properties.productId.type.should.be.equal('String');
-            schema.properties.productId.hdb.columnName.should.be.equal('product_id');
-            schema.properties.locationId.should.not.be.empty;
-            schema.properties.locationId.type.should.be.equal('String');
-            schema.properties.locationId.hdb.columnName.should.be.equal('location_id');
-            schema.properties.available.should.not.be.empty;
-            schema.properties.available.type.should.be.equal('Number');
-            schema.properties.total.should.not.be.empty;
-            schema.properties.total.type.should.be.equal('Number');
-            done(null, schema);
-        });
-    });
-});
+/*
+ describe('Discover LDL schema from a table', function () {
+ it('should return an LDL schema for inventory', function (done) {
+ db.discoverSchema('inventory', {owner: 'strongloop'}, function (err, schema) {
+ schema.name.should.be.equal('Inventory');
+ schema.options.hdb.schema.should.be.equal('strongloop');
+ schema.options.hdb.table.should.be.equal('inventory');
+ schema.properties.productId.should.not.be.empty;
+ schema.properties.productId.type.should.be.equal('String');
+ schema.properties.productId.hdb.columnName.should.be.equal('product_id');
+ schema.properties.locationId.should.not.be.empty;
+ schema.properties.locationId.type.should.be.equal('String');
+ schema.properties.locationId.hdb.columnName.should.be.equal('location_id');
+ schema.properties.available.should.not.be.empty;
+ schema.properties.available.type.should.be.equal('Number');
+ schema.properties.total.should.not.be.empty;
+ schema.properties.total.type.should.be.equal('Number');
+ done(null, schema);
+ });
+ });
+ });
+ */

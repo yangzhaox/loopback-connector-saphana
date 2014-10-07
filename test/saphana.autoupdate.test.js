@@ -16,7 +16,7 @@ describe('SAP HANA auto update', function () {
             "name": "CustomerTest",
             "options": {
                 "idInjection": false,
-                "saphana": {
+                "hdb": {
                     "schema": "",
                     "table": "customer_test"
                 }
@@ -49,7 +49,7 @@ describe('SAP HANA auto update', function () {
             "name": "CustomerTest",
             "options": {
                 "idInjection": false,
-                "saphana": {
+                "hdb": {
                     "schema": "",
                     "table": "customer_test"
                 }
@@ -64,7 +64,7 @@ describe('SAP HANA auto update', function () {
                     "type": "String",
                     "required": false,
                     "length": 60,
-                    "saphana": {
+                    "hdb": {
                         "columnName": "email",
                         "dataType": "varchar",
                         "dataLength": 60,

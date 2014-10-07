@@ -2,7 +2,7 @@ module.exports = require('should');
 
 var DataSource = require('loopback-datasource-juggler').DataSource;
 
-var config = require('rc')('loopback', {test: {saphana: {}}}).test.saphana;
+var config = require('rc')('loopback', {test: {hdb: {}}}).test.hdb;
 
 global.getConfig = function (options) {
     var dbConf = {

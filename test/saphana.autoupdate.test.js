@@ -1,10 +1,9 @@
-var should, assert, db;
+var should, db;
 
 describe('SAP HANA auto update', function () {
 
     before(function (done) {
         should = require('./init.js');
-        assert = require('assert');
         db = getDataSource();
         done();
     });
@@ -90,29 +89,26 @@ describe('SAP HANA auto update', function () {
 
             db.discoverModelProperties('customer_test', null, function (err, props) {
                 props.should.have.length(4);
-                assert.equal(props.length, 4);
                 var names = props.map(function (p) {
                     return p.columnName;
                 });
-                names[0].should.equal('id');
-                assert.equal(names[0], 'id');
-                assert.equal(names[1], 'name');
-                assert.equal(names[2], 'email');
-                assert.equal(names[3], 'age');
+                names[0].should.be.equal('id');
+                names[1].should.be.equal('name');
+                names[2].should.be.equal('email');
+                names[3].should.be.equal('age');
 
                 db.createModel(schema_v2.name, schema_v2.properties, schema_v2.options);
 
                 db.autoupdate(function (err, result) {
                     db.discoverModelProperties('customer_test', null, function (err, props) {
-                        assert.equal(props.length, 4);
+                        props.should.have.length(4);
                         var names = props.map(function (p) {
                             return p.columnName;
                         });
-                        assert.equal(names[0], 'id');
-                        assert.equal(names[1], 'email');
-                        assert.equal(names[2], 'firstName');
-                        assert.equal(names[3], 'lastName');
-                        // console.log(err, result);
+                        names[0].should.be.equal('id');
+                        names[1].should.be.equal('email');
+                        names[2].should.be.equal('firstName');
+                        names[3].should.be.equal('lastName');
                         done(err, result);
                     });
                 });
@@ -122,13 +118,13 @@ describe('SAP HANA auto update', function () {
 
     it('should report errors for automigrate', function () {
         db.automigrate('XYZ', function (err) {
-            assert(err);
+            should.exist(err);
         });
     });
 
     it('should report errors for autoupdate', function () {
         db.autoupdate('XYZ', function (err) {
-            assert(err);
+            should.exist(err);
         });
     });
 

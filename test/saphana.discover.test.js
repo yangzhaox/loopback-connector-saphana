@@ -1,10 +1,9 @@
-var should, assert, db;
+var should, db;
 
 describe('SAP HANA discover models', function () {
 
     before(function (done) {
         should = require('./init.js');
-        assert = require('assert');
         db = getDataSource();
         done();
     });
@@ -27,7 +26,7 @@ describe('SAP HANA discover models', function () {
                             views = true;
                         }
                     });
-                    assert(views, 'Should have views');
+                    should.exist(views, 'Should have views');
                     done(null, models);
                 }
             });
@@ -53,7 +52,7 @@ describe('SAP HANA discover models', function () {
                         }
                     });
                     models.should.have.length(3);
-                    assert(!views, 'Should not have views');
+                    should.not.exist(views, 'Should not have views');
                     done(null, models);
                 }
             });
@@ -79,7 +78,7 @@ describe('Discover models including other users', function () {
                         others = true;
                     }
                 });
-                assert(others, 'Should have tables/views owned by others');
+                should.exist(others, 'Should have tables/views owned by others');
                 done(err, models);
             }
         });
@@ -95,8 +94,7 @@ describe('Discover model properties', function () {
                     done(err);
                 } else {
                     models.forEach(function (m) {
-                        // console.dir(m);
-                        assert(m.tableName === 'product');
+                        m.tablename.should.be.equal('product');
                     });
                     done(null, models);
                 }
@@ -114,7 +112,8 @@ describe('Discover model primary keys', function () {
                 done(err);
             } else {
                 models.forEach(function (m) {
-                    assert.deepEqual(m, { owner: 'strongloop',
+                    m.should.be.eql({
+                        owner: 'strongloop',
                         tableName: 'product',
                         columnName: 'id',
                         keySeq: 1,
@@ -132,8 +131,7 @@ describe('Discover model primary keys', function () {
                 done(err);
             } else {
                 models.forEach(function (m) {
-                    // console.dir(m);
-                    assert(m.tableName === 'product');
+                    m.tablename.should.be.equal('product');
                 });
                 done(null, models);
             }
@@ -149,8 +147,7 @@ describe('Discover model foreign keys', function () {
                 done(err);
             } else {
                 models.forEach(function (m) {
-                    // console.dir(m);
-                    assert(m.fkTableName === 'inventory');
+                    m.fkTableName.should.be.equal('inventory');
                 });
                 done(null, models);
             }
@@ -163,8 +160,7 @@ describe('Discover model foreign keys', function () {
                 done(err);
             } else {
                 models.forEach(function (m) {
-                    // console.dir(m);
-                    assert(m.fkTableName === 'inventory');
+                    m.fkTableName.should.be.equal('inventory');
                 });
                 done(null, models);
             }
@@ -175,19 +171,19 @@ describe('Discover model foreign keys', function () {
 describe('Discover LDL schema from a table', function () {
     it('should return an LDL schema for inventory', function (done) {
         db.discoverSchema('inventory', {owner: 'strongloop'}, function (err, schema) {
-            assert(schema.name === 'Inventory');
-            assert(schema.options.postgresql.schema === 'strongloop');
-            assert(schema.options.postgresql.table === 'inventory');
-            assert(schema.properties.productId);
-            assert(schema.properties.productId.type === 'String');
-            assert(schema.properties.productId.postgresql.columnName === 'product_id');
-            assert(schema.properties.locationId);
-            assert(schema.properties.locationId.type === 'String');
-            assert(schema.properties.locationId.postgresql.columnName === 'location_id');
-            assert(schema.properties.available);
-            assert(schema.properties.available.type === 'Number');
-            assert(schema.properties.total);
-            assert(schema.properties.total.type === 'Number');
+            schema.name.should.be.equal('Inventory');
+            schema.options.hdb.schema.should.be.equal('strongloop');
+            schema.options.hdb.table.should.be.equal('inventory');
+            schema.properties.productId.should.not.be.empty;
+            schema.properties.productId.type.should.be.equal('String');
+            schema.properties.productId.hdb.columnName.should.be.equal('product_id');
+            schema.properties.locationId.should.not.be.empty;
+            schema.properties.locationId.type.should.be.equal('String');
+            schema.properties.locationId.hdb.columnName.should.be.equal('location_id');
+            schema.properties.available.should.not.be.empty;
+            schema.properties.available.type.should.be.equal('Number');
+            schema.properties.total.should.not.be.empty;
+            schema.properties.total.type.should.be.equal('Number');
             done(null, schema);
         });
     });

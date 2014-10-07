@@ -88,11 +88,13 @@ describe('SAP HANA auto update', function () {
 
         db.automigrate(function () {
 
-            db.discoverModelProperties('customer_test', function (err, props) {
+            db.discoverModelProperties('customer_test', null, function (err, props) {
+                props.should.have.length(4);
                 assert.equal(props.length, 4);
                 var names = props.map(function (p) {
                     return p.columnName;
                 });
+                names[0].should.equal('id');
                 assert.equal(names[0], 'id');
                 assert.equal(names[1], 'name');
                 assert.equal(names[2], 'email');
@@ -101,15 +103,15 @@ describe('SAP HANA auto update', function () {
                 db.createModel(schema_v2.name, schema_v2.properties, schema_v2.options);
 
                 db.autoupdate(function (err, result) {
-                    db.discoverModelProperties('customer_test', function (err, props) {
+                    db.discoverModelProperties('customer_test', null, function (err, props) {
                         assert.equal(props.length, 4);
                         var names = props.map(function (p) {
                             return p.columnName;
                         });
                         assert.equal(names[0], 'id');
                         assert.equal(names[1], 'email');
-                        assert.equal(names[2], 'firstname');
-                        assert.equal(names[3], 'lastname');
+                        assert.equal(names[2], 'firstName');
+                        assert.equal(names[3], 'lastName');
                         // console.log(err, result);
                         done(err, result);
                     });

@@ -94,7 +94,7 @@ describe('Discover model properties', function () {
                     done(err);
                 } else {
                     models.forEach(function (m) {
-                        m.tablename.should.be.equal('product');
+                        m.tableName.should.be.equal('product');
                     });
                     done(null, models);
                 }
@@ -117,7 +117,7 @@ describe('Discover model primary keys', function () {
                         tableName: 'product',
                         columnName: 'id',
                         keySeq: 1,
-                        pkName: 'product_pkey' });
+                        pkName: 'product_pk' });
                 });
                 done(null, models);
             }
@@ -131,7 +131,7 @@ describe('Discover model primary keys', function () {
                 done(err);
             } else {
                 models.forEach(function (m) {
-                    m.tablename.should.be.equal('product');
+                    m.tableName.should.be.equal('product');
                 });
                 done(null, models);
             }
@@ -159,34 +159,32 @@ describe('Discover model foreign keys', function () {
                 console.error(err);
                 done(err);
             } else {
-                models.forEach(function (m) {
-                    m.fkTableName.should.be.equal('inventory');
-                });
+                models[0].fkTableName.should.be.equal('product');
+                models[1].fkTableName.should.be.equal('location');
                 done(null, models);
             }
         });
     });
 });
 
-/*
- describe('Discover LDL schema from a table', function () {
- it('should return an LDL schema for inventory', function (done) {
- db.discoverSchema('inventory', {owner: 'strongloop'}, function (err, schema) {
- schema.name.should.be.equal('Inventory');
- schema.options.hdb.schema.should.be.equal('strongloop');
- schema.options.hdb.table.should.be.equal('inventory');
- schema.properties.productId.should.not.be.empty;
- schema.properties.productId.type.should.be.equal('String');
- schema.properties.productId.hdb.columnName.should.be.equal('product_id');
- schema.properties.locationId.should.not.be.empty;
- schema.properties.locationId.type.should.be.equal('String');
- schema.properties.locationId.hdb.columnName.should.be.equal('location_id');
- schema.properties.available.should.not.be.empty;
- schema.properties.available.type.should.be.equal('Number');
- schema.properties.total.should.not.be.empty;
- schema.properties.total.type.should.be.equal('Number');
- done(null, schema);
- });
- });
- });
- */
+
+describe('Discover LDL schema from a table', function () {
+    it('should return an LDL schema for inventory', function (done) {
+        db.discoverSchema('inventory', {owner: 'strongloop'}, function (err, schema) {
+            schema.name.should.be.equal('Inventory');
+            schema.options.hdb.schema.should.be.equal('strongloop');
+            schema.options.hdb.table.should.be.equal('inventory');
+            schema.properties.productId.should.not.be.empty;
+            schema.properties.productId.type.should.be.equal('String');
+            schema.properties.productId.hdb.columnName.should.be.equal('product_id');
+            schema.properties.locationId.should.not.be.empty;
+            schema.properties.locationId.type.should.be.equal('String');
+            schema.properties.locationId.hdb.columnName.should.be.equal('location_id');
+            schema.properties.available.should.not.be.empty;
+            schema.properties.available.type.should.be.equal('Number');
+            schema.properties.total.should.not.be.empty;
+            schema.properties.total.type.should.be.equal('Number');
+            done(null, schema);
+        });
+    });
+});

@@ -680,7 +680,6 @@ INSERT INTO "strongloop"."product" ("id","name","audible_range","effective_range
 INSERT INTO "strongloop"."product" ("id","name","audible_range","effective_range","rounds","extras","fire_modes") VALUES ('2','G17',53,75,15,'Flashlight','Single');
 INSERT INTO "strongloop"."product" ("id","name","audible_range","effective_range","rounds","extras","fire_modes") VALUES ('5','M9 SD',0,75,15,'Silenced','Single');
 
-DROP VIEW   "strongloop"."inventory_view";
 CREATE VIEW "strongloop"."inventory_view" AS
     SELECT  p."name" AS "product",
             l."name" AS "location",

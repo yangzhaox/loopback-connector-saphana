@@ -1,6 +1,6 @@
 {
   "name": "loopback-connector-saphana",
-    "version": "0.7.0",
+    "version": "0.7.1",
   "description": "SAP HANA connector for loopback-datasource-juggler",
   "main": "index.js",
   "scripts": {

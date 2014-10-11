@@ -50,7 +50,7 @@ The model definition consists of the following properties:
         "scale": null,
         "hdb": {
           "columnName": "id",
-          "dataType": "character varying",
+          "dataType": "varchar",
           "dataLength": 64,
           "dataPrecision": null,
           "dataScale": null,
@@ -66,7 +66,7 @@ The model definition consists of the following properties:
         "id": 1,
         "hdb": {
           "columnName": "product_id",
-          "dataType": "character varying",
+          "dataType": "varchar",
           "dataLength": 20,
           "dataPrecision": null,
           "dataScale": null,
@@ -82,7 +82,7 @@ The model definition consists of the following properties:
         "id": 1,
         "hdb": {
           "columnName": "location_id",
-          "dataType": "character varying",
+          "dataType": "varchar",
           "dataLength": 20,
           "dataPrecision": null,
           "dataScale": null,
@@ -131,7 +131,6 @@ The model definition consists of the following properties:
  - Object
  - Date
  - Array
- - Buffer
 
 ### JSON to SAP HANA Types
 
